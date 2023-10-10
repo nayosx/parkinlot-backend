@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "parkinglots",
+  "info": {
+    "singularName": "parkinglot",
+    "pluralName": "parkinglots",
+    "displayName": "parkinglot"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "latitude": {
+      "type": "float"
+    },
+    "longitude": {
+      "type": "float"
+    },
+    "address": {
+      "type": "text"
+    }
+  }
+}

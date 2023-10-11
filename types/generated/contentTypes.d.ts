@@ -368,6 +368,7 @@ export interface ApiParkinglotParkinglot extends Schema.CollectionType {
     singularName: 'parkinglot';
     pluralName: 'parkinglots';
     displayName: 'parkinglot';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -377,6 +378,18 @@ export interface ApiParkinglotParkinglot extends Schema.CollectionType {
     latitude: Attribute.Float;
     longitude: Attribute.Float;
     address: Attribute.Text;
+    users_permissions_user: Attribute.Relation<
+      'api::parkinglot.parkinglot',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    photos: Attribute.Media;
+    rating: Attribute.Integer &
+      Attribute.SetMinMax<{
+        min: 0;
+        max: 5;
+      }> &
+      Attribute.DefaultTo<1>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -663,7 +676,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -691,6 +703,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.user',
       'manyToOne',
       'plugin::users-permissions.role'
+    >;
+    parkinglots: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::parkinglot.parkinglot'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

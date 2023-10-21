@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "parking_comments",
+  "info": {
+    "singularName": "parking-comment",
+    "pluralName": "parking-comments",
+    "displayName": "Parkinglot Comment",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "text",
+      "maxLength": 140
+    },
+    "post": {
+      "type": "text",
+      "maxLength": 1000
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "parkinglot": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::parkinglot.parkinglot"
+    },
+    "is_anonimus": {
+      "type": "boolean",
+      "default": true
+    },
+    "star": {
+      "type": "decimal",
+      "max": 5
+    }
+  }
+}

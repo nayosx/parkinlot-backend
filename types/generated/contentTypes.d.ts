@@ -362,51 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiParkinglotParkinglot extends Schema.CollectionType {
-  collectionName: 'parkinglots';
-  info: {
-    singularName: 'parkinglot';
-    pluralName: 'parkinglots';
-    displayName: 'parkinglot';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    name: Attribute.String;
-    latitude: Attribute.Float;
-    longitude: Attribute.Float;
-    address: Attribute.Text;
-    users_permissions_user: Attribute.Relation<
-      'api::parkinglot.parkinglot',
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-    photos: Attribute.Media;
-    rating: Attribute.Integer &
-      Attribute.SetMinMax<{
-        min: 0;
-        max: 5;
-      }> &
-      Attribute.DefaultTo<1>;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::parkinglot.parkinglot',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::parkinglot.parkinglot',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -704,11 +659,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    parkinglots: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::parkinglot.parkinglot'
-    >;
+    is_active: Attribute.Boolean & Attribute.DefaultTo<true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -726,6 +677,237 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiParkingCommentParkingComment extends Schema.CollectionType {
+  collectionName: 'parking_comments';
+  info: {
+    singularName: 'parking-comment';
+    pluralName: 'parking-comments';
+    displayName: 'Parkinglot Comment';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        maxLength: 140;
+      }>;
+    post: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        maxLength: 1000;
+      }>;
+    user: Attribute.Relation<
+      'api::parking-comment.parking-comment',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    parkinglot: Attribute.Relation<
+      'api::parking-comment.parking-comment',
+      'oneToOne',
+      'api::parkinglot.parkinglot'
+    >;
+    is_anonimus: Attribute.Boolean & Attribute.DefaultTo<true>;
+    star: Attribute.Decimal &
+      Attribute.SetMinMax<{
+        max: 5;
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::parking-comment.parking-comment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::parking-comment.parking-comment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiParkingMediaParkingMedia extends Schema.CollectionType {
+  collectionName: 'parking_medias';
+  info: {
+    singularName: 'parking-media';
+    pluralName: 'parking-medias';
+    displayName: 'Parkinglot Media';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Attribute.String;
+    is_principal: Attribute.Boolean & Attribute.DefaultTo<false>;
+    media: Attribute.Media;
+    parkinglot: Attribute.Relation<
+      'api::parking-media.parking-media',
+      'oneToOne',
+      'api::parkinglot.parkinglot'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::parking-media.parking-media',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::parking-media.parking-media',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiParkingPaymentParkingPayment extends Schema.CollectionType {
+  collectionName: 'parking_payments';
+  info: {
+    singularName: 'parking-payment';
+    pluralName: 'parking-payments';
+    displayName: 'Parkinglot Payment';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    price: Attribute.Decimal & Attribute.Required;
+    parkinglot: Attribute.Relation<
+      'api::parking-payment.parking-payment',
+      'oneToOne',
+      'api::parkinglot.parkinglot'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::parking-payment.parking-payment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::parking-payment.parking-payment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiParkinglotParkinglot extends Schema.CollectionType {
+  collectionName: 'parkinglots';
+  info: {
+    singularName: 'parkinglot';
+    pluralName: 'parkinglots';
+    displayName: 'Parkinglot';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String;
+    latitude: Attribute.Float;
+    longitude: Attribute.Float;
+    address: Attribute.Text;
+    capacity: Attribute.Integer &
+      Attribute.SetMinMax<{
+        min: 1;
+      }>;
+    covered_slot: Attribute.Integer;
+    special_slot: Attribute.Integer;
+    vip_slot: Attribute.Integer;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::parkinglot.parkinglot',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::parkinglot.parkinglot',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPaymentMethodPaymentMethod extends Schema.CollectionType {
+  collectionName: 'payment_methods';
+  info: {
+    singularName: 'payment-method';
+    pluralName: 'payment-methods';
+    displayName: 'Payment Method';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    title: Attribute.Text;
+    description: Attribute.Text;
+    icon: Attribute.Media;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::payment-method.payment-method',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::payment-method.payment-method',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiUserParkinglotUserParkinglot extends Schema.CollectionType {
+  collectionName: 'user_parkinglots';
+  info: {
+    singularName: 'user-parkinglot';
+    pluralName: 'user-parkinglots';
+    displayName: 'User Parkinglot';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    parkinglot: Attribute.Relation<
+      'api::user-parkinglot.user-parkinglot',
+      'oneToOne',
+      'api::parkinglot.parkinglot'
+    >;
+    is_active: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::user-parkinglot.user-parkinglot',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::user-parkinglot.user-parkinglot',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -736,13 +918,18 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::parkinglot.parkinglot': ApiParkinglotParkinglot;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::parking-comment.parking-comment': ApiParkingCommentParkingComment;
+      'api::parking-media.parking-media': ApiParkingMediaParkingMedia;
+      'api::parking-payment.parking-payment': ApiParkingPaymentParkingPayment;
+      'api::parkinglot.parkinglot': ApiParkinglotParkinglot;
+      'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;
+      'api::user-parkinglot.user-parkinglot': ApiUserParkinglotUserParkinglot;
     }
   }
 }

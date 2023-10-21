@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "parking_medias",
+  "info": {
+    "singularName": "parking-media",
+    "pluralName": "parking-medias",
+    "displayName": "Parkinglot Media",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "is_principal": {
+      "type": "boolean",
+      "default": false
+    },
+    "media": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ]
+    },
+    "parkinglot": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::parkinglot.parkinglot"
+    }
+  }
+}

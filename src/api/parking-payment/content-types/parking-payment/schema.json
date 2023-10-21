@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "parking_payments",
+  "info": {
+    "singularName": "parking-payment",
+    "pluralName": "parking-payments",
+    "displayName": "Parkinglot Payment",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "parkinglot": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::parkinglot.parkinglot"
+    }
+  }
+}

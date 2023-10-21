@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_parkinglots",
+  "info": {
+    "singularName": "user-parkinglot",
+    "pluralName": "user-parkinglots",
+    "displayName": "User Parkinglot",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "parkinglot": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::parkinglot.parkinglot"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

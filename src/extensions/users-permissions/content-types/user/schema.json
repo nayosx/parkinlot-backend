@@ -65,11 +65,9 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "parkinglots": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::parkinglot.parkinglot",
-      "mappedBy": "users_permissions_user"
+    "is_active": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

@@ -4,7 +4,7 @@
   "info": {
     "singularName": "parkinglot",
     "pluralName": "parkinglots",
-    "displayName": "parkinglot",
+    "displayName": "Parkinglot",
     "description": ""
   },
   "options": {
@@ -24,26 +24,18 @@
     "address": {
       "type": "text"
     },
-    "users_permissions_user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "parkinglots"
-    },
-    "photos": {
-      "type": "media",
-      "multiple": true,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "videos"
-      ]
-    },
-    "rating": {
+    "capacity": {
       "type": "integer",
-      "max": 5,
-      "min": 0,
-      "default": 1
+      "min": 1
+    },
+    "covered_slot": {
+      "type": "integer"
+    },
+    "special_slot": {
+      "type": "integer"
+    },
+    "vip_slot": {
+      "type": "integer"
     }
   }
 }

@@ -36,6 +36,12 @@
     },
     "vip_slot": {
       "type": "integer"
+    },
+    "payment_methods": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::payment-method.payment-method",
+      "mappedBy": "parkinglot"
     }
   }
 }

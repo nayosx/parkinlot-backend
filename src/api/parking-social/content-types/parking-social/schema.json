@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "user_parkinglots",
+  "collectionName": "parking_socials",
   "info": {
-    "singularName": "user-parkinglot",
-    "pluralName": "user-parkinglots",
-    "displayName": "User Parkinglot",
+    "singularName": "parking-social",
+    "pluralName": "parking-socials",
+    "displayName": "Parkinglot Social",
     "description": ""
   },
   "options": {
@@ -17,14 +17,12 @@
       "relation": "oneToOne",
       "target": "api::parkinglot.parkinglot"
     },
+    "name": {
+      "type": "string"
+    },
     "is_active": {
       "type": "boolean",
-      "default": false
-    },
-    "user": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "default": true
     }
   }
 }

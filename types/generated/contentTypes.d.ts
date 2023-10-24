@@ -778,13 +778,14 @@ export interface ApiParkingPaymentParkingPayment extends Schema.CollectionType {
     draftAndPublish: false;
   };
   attributes: {
-    name: Attribute.String & Attribute.Required;
+    title: Attribute.String & Attribute.Required;
     price: Attribute.Decimal & Attribute.Required;
     parkinglot: Attribute.Relation<
       'api::parking-payment.parking-payment',
       'oneToOne',
       'api::parkinglot.parkinglot'
     >;
+    is_active: Attribute.Boolean & Attribute.DefaultTo<true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -795,6 +796,78 @@ export interface ApiParkingPaymentParkingPayment extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::parking-payment.parking-payment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiParkingSocialParkingSocial extends Schema.CollectionType {
+  collectionName: 'parking_socials';
+  info: {
+    singularName: 'parking-social';
+    pluralName: 'parking-socials';
+    displayName: 'Parkinglot Social';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    parkinglot: Attribute.Relation<
+      'api::parking-social.parking-social',
+      'oneToOne',
+      'api::parkinglot.parkinglot'
+    >;
+    name: Attribute.String;
+    is_active: Attribute.Boolean & Attribute.DefaultTo<true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::parking-social.parking-social',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::parking-social.parking-social',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiParkingTelephoneParkingTelephone
+  extends Schema.CollectionType {
+  collectionName: 'parking_telephones';
+  info: {
+    singularName: 'parking-telephone';
+    pluralName: 'parking-telephones';
+    displayName: 'Parkinglot Telephone';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    telephone: Attribute.String & Attribute.Required;
+    parkinglot: Attribute.Relation<
+      'api::parking-telephone.parking-telephone',
+      'oneToOne',
+      'api::parkinglot.parkinglot'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::parking-telephone.parking-telephone',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::parking-telephone.parking-telephone',
       'oneToOne',
       'admin::user'
     > &
@@ -825,6 +898,11 @@ export interface ApiParkinglotParkinglot extends Schema.CollectionType {
     covered_slot: Attribute.Integer;
     special_slot: Attribute.Integer;
     vip_slot: Attribute.Integer;
+    payment_methods: Attribute.Relation<
+      'api::parkinglot.parkinglot',
+      'oneToMany',
+      'api::payment-method.payment-method'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -848,14 +926,20 @@ export interface ApiPaymentMethodPaymentMethod extends Schema.CollectionType {
     singularName: 'payment-method';
     pluralName: 'payment-methods';
     displayName: 'Payment Method';
+    description: '';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    title: Attribute.Text;
+    title: Attribute.String;
     description: Attribute.Text;
     icon: Attribute.Media;
+    parkinglot: Attribute.Relation<
+      'api::payment-method.payment-method',
+      'manyToOne',
+      'api::parkinglot.parkinglot'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -891,6 +975,11 @@ export interface ApiUserParkinglotUserParkinglot extends Schema.CollectionType {
       'api::parkinglot.parkinglot'
     >;
     is_active: Attribute.Boolean & Attribute.DefaultTo<false>;
+    user: Attribute.Relation<
+      'api::user-parkinglot.user-parkinglot',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -927,6 +1016,8 @@ declare module '@strapi/types' {
       'api::parking-comment.parking-comment': ApiParkingCommentParkingComment;
       'api::parking-media.parking-media': ApiParkingMediaParkingMedia;
       'api::parking-payment.parking-payment': ApiParkingPaymentParkingPayment;
+      'api::parking-social.parking-social': ApiParkingSocialParkingSocial;
+      'api::parking-telephone.parking-telephone': ApiParkingTelephoneParkingTelephone;
       'api::parkinglot.parkinglot': ApiParkinglotParkinglot;
       'api::payment-method.payment-method': ApiPaymentMethodPaymentMethod;
       'api::user-parkinglot.user-parkinglot': ApiUserParkinglotUserParkinglot;

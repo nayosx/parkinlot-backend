@@ -4,7 +4,8 @@
   "info": {
     "singularName": "payment-method",
     "pluralName": "payment-methods",
-    "displayName": "Payment Method"
+    "displayName": "Payment Method",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -12,17 +13,24 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "text"
+      "type": "string"
     },
     "description": {
       "type": "text"
     },
     "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "parkinglot": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::parkinglot.parkinglot",
+      "inversedBy": "payment_methods"
     }
   }
 }

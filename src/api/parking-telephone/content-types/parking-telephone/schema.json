@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "parking_payments",
+  "collectionName": "parking_telephones",
   "info": {
-    "singularName": "parking-payment",
-    "pluralName": "parking-payments",
-    "displayName": "Parkinglot Payment",
+    "singularName": "parking-telephone",
+    "pluralName": "parking-telephones",
+    "displayName": "Parkinglot Telephone",
     "description": ""
   },
   "options": {
@@ -12,22 +12,14 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "title": {
+    "telephone": {
       "type": "string",
-      "required": true
-    },
-    "price": {
-      "type": "decimal",
       "required": true
     },
     "parkinglot": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::parkinglot.parkinglot"
-    },
-    "is_active": {
-      "type": "boolean",
-      "default": true
     }
   }
 }
